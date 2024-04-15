@@ -41,7 +41,7 @@ public class PuttingIntoPractice {
         List<Trader> third =
                 transactions.stream()
                         .map(Transaction::getTrader)
-                        .filter(trader -> trader.getCity() == "Cambridge")
+                        .filter(trader -> trader.getCity().equals("Cambridge"))
                         .sorted(comparing(Trader::getName))
                         .collect(toList());
         System.out.println(third);
@@ -62,19 +62,20 @@ public class PuttingIntoPractice {
 
 
         transactions.stream()
-                .filter(transaction -> transaction.getTrader().getCity() == "Cambridge")
+                .filter(transaction -> transaction.getTrader().getCity().equals("Cambridge"))
                 .map(Transaction::getValue)
                 .forEach(System.out::println);
 
-        Transaction min =
-                transactions.stream()
-                        .reduce(null, (x, y) -> x.getValue() < y.getValue() ? x : y);
 
         Optional<Integer> max =
                 transactions.stream()
                         .map(Transaction::getValue)
                         .reduce(Integer::max);
 
+
+        Optional<Transaction> min =
+                transactions.stream()
+                        .reduce((x, y) -> x.getValue() < y.getValue() ? x : y);
 
 
 
